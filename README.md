@@ -1,49 +1,13 @@
-# Packaged version of Mask3D to be used in LabelMaker
+# Packaged version of Mask3D + Devcontainer
 
-## Installation
-
+## Devcontainer
+We provide [devcontainer](.devcontainer) configuration files to use Mask3D hassle-free.
+After opening the project inside the devcontainer, you still have to install the Mask3D package:
 ```
-# Some users experienced issues on Ubuntu with an AMD CPU
-# Install libopenblas-dev (issue #115, thanks WindWing)
-# sudo apt-get install libopenblas-dev
-
-export TORCH_CUDA_ARCH_LIST="6.0 6.1 6.2 7.0 7.2 7.5 8.0 8.6"
-
-conda env create -f environment.yml
-
-conda activate mask3d_cuda113
-
-pip3 install torch==1.12.1+cu113 torchvision==0.13.1+cu113 --extra-index-url https://download.pytorch.org/whl/cu113
-pip3 install torch-scatter -f https://data.pyg.org/whl/torch-1.12.1+cu113.html
-pip3 install 'git+https://github.com/facebookresearch/detectron2.git@710e7795d0eeadf9def0e7ef957eea13532e34cf' --no-deps
-
-mkdir third_party
-cd third_party
-
-git clone --recursive "https://github.com/NVIDIA/MinkowskiEngine"
-cd MinkowskiEngine
-git checkout 02fc608bea4c0549b0a7b00ca1bf15dee4a0b228
-python setup.py install --force_cuda --blas=openblas
-
-cd ..
-git clone https://github.com/ScanNet/ScanNet.git
-cd ScanNet/Segmentator
-git checkout 3e5726500896748521a6ceb81271b0f5b2c0e7d2
-make
-
-cd third_party/pointnet2
-python setup.py install
-
-cd ../../
-pip3 install pytorch-lightning==1.7.2
-
 pip install .
-
 ```
 
-To use the model in your code you need to download a checkpoint from the list below.
-Afterwards, the basic model can be used like:
-
+## Use
 
 ```python
 from mask3d import get_model

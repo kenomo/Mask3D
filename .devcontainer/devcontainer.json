@@ -1,0 +1,27 @@
+{
+	"name": "Mask3D",
+
+	"build": {
+		"dockerfile": "Dockerfile",
+		"context": ".."
+	},
+
+	"customizations": {
+		"vscode": {
+			"extensions": [
+				"ms-python.python"
+			]
+		}
+	},
+
+	"remoteUser": "root",
+    
+	"workspaceMount": "source=${localWorkspaceFolder},target=/Mask3D,type=bind,consistency=cached",
+	"workspaceFolder": "/Mask3D",
+    
+	"runArgs": [
+		"--gpus=all",
+		"--ipc=host"
+	]
+
+}
